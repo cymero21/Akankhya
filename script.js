@@ -196,7 +196,7 @@ function pickMood(btn, mood) {
     "not my day": "that's okay. tomorrow's new."
   };
   confirm.textContent = msgs[mood] || '';
-  igLink.href = 'https://ig.me/m/YOURINSTAGRAMHANDLE';
+  igLink.href = 'https://ig.me/m/cymero_';
   result.classList.add('show');
 }
 
