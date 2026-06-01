@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="Hey, Akankhya.">
 <meta property="og:description" content="something made for you.">
-<meta property="og:image" content="https://https://akankhyaa.netlify.app//images/hamster-main.jpg">
+<meta property="og:image" content="https://akankhyaa.netlify.app/images/hamster-main.jpg">
 <meta property="og:type" content="website">
 
 </head>
@@ -68,6 +68,39 @@
         tell Cymero 👀
       </a>
     </div>
+  </div>
+</div>
+
+<!-- QUIZ GAME -->
+<div class="section">
+  <p class="section-label">today's game</p>
+  <div class="quiz-card" id="quiz-card">
+    <p class="wg-loading">loading your quiz...</p>
+  </div>
+</div>
+
+<!-- SKETCH CANVAS -->
+<div class="section">
+  <p class="section-label">your canvas</p>
+  <div class="canvas-card">
+    <div class="canvas-toolbar">
+      <div class="tool-group">
+        <button class="tool-btn active" id="tool-pen" onclick="setTool('pen')" title="Pen">✏️</button>
+        <button class="tool-btn" id="tool-eraser" onclick="setTool('eraser')" title="Eraser">🧹</button>
+      </div>
+      <div class="tool-group">
+        <input type="color" id="color-picker" value="#2d1f1a" class="color-input" title="Color">
+        <button class="size-btn" onclick="setSize(3)" title="Small">·</button>
+        <button class="size-btn" onclick="setSize(7)" title="Medium">•</button>
+        <button class="size-btn" onclick="setSize(14)" title="Large">●</button>
+      </div>
+      <div class="tool-group">
+        <button class="action-btn" onclick="clearCanvas()">clear</button>
+        <button class="action-btn save" onclick="saveCanvas()">save ↓</button>
+      </div>
+    </div>
+    <canvas id="sketch-canvas" width="500" height="340"></canvas>
+    <p class="canvas-hint">based on the prompt above — or whatever you feel like.</p>
   </div>
 </div>
 

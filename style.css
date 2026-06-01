@@ -380,10 +380,276 @@
     font-weight: 500;
   }
 
+  /* QUIZ GAME */
+  .quiz-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 1px solid rgba(212,168,154,0.2);
+  }
+
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .quiz-category {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  .quiz-progress {
+    font-size: 11px;
+    color: var(--brown-light);
+    font-weight: 400;
+  }
+
+  .quiz-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--brown);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .quiz-hint {
+    font-size: 12px;
+    color: var(--brown-light);
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--cream);
+    border: 2px solid rgba(212,168,154,0.25);
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .quiz-option:hover:not(:disabled) {
+    background: var(--rose-light);
+    border-color: var(--rose);
+  }
+
+  .quiz-letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--warm);
+    color: var(--brown-mid);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.18s;
+  }
+
+  .quiz-opt-text {
+    font-size: 14px;
+    color: var(--brown);
+    font-weight: 400;
+  }
+
+  .quiz-option.quiz-correct {
+    background: #edf7ed;
+    border-color: #6aaa64;
+  }
+  .quiz-option.quiz-correct .quiz-letter {
+    background: #6aaa64;
+    color: white;
+  }
+
+  .quiz-option.quiz-wrong {
+    background: var(--cream);
+    border-color: rgba(212,168,154,0.15);
+    opacity: 0.5;
+  }
+
+  .quiz-feedback {
+    font-size: 13px;
+    min-height: 20px;
+    margin-bottom: 14px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .quiz-fb-correct { color: #6aaa64; font-weight: 500; font-style: normal; }
+  .quiz-fb-wrong { color: var(--brown-mid); }
+
+  .quiz-actions { display: flex; justify-content: flex-end; }
+
+  .quiz-next-btn {
+    background: var(--brown);
+    color: var(--cream);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+
+  .quiz-next-btn:hover { background: var(--brown-mid); }
+
+  .quiz-score-final {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--brown);
+    text-align: center;
+    margin: 16px 0 8px;
+  }
+
+  .quiz-score-final strong { color: var(--rose); font-weight: 600; }
+
+  .wg-loading {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--brown-light);
+    padding: 24px 0;
+    text-align: center;
+  }
+
+  /* CANVAS */
+  .canvas-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 1px solid rgba(212,168,154,0.2);
+  }
+
+  .canvas-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .tool-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: var(--cream);
+    border-radius: 10px;
+  }
+
+  .tool-btn {
+    width: 34px;
+    height: 34px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .tool-btn:hover, .tool-btn.active { background: var(--rose-light); border-color: var(--rose); }
+
+  .color-input {
+    width: 34px;
+    height: 34px;
+    border: 2px solid var(--rose-light);
+    border-radius: 8px;
+    padding: 2px;
+    cursor: pointer;
+    background: none;
+  }
+
+  .size-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .size-btn:hover, .size-btn.active { background: var(--rose-light); border-color: var(--rose); }
+
+  .action-btn {
+    height: 34px;
+    padding: 0 14px;
+    border: 2px solid var(--rose-light);
+    border-radius: 20px;
+    background: none;
+    color: var(--brown-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .action-btn:hover { background: var(--rose-light); }
+  .action-btn.save { background: var(--rose); color: white; border-color: var(--rose); }
+  .action-btn.save:hover { background: var(--brown-mid); border-color: var(--brown-mid); }
+
+  #sketch-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: var(--cream);
+    border: 1.5px solid rgba(212,168,154,0.3);
+    cursor: crosshair;
+    display: block;
+    touch-action: none;
+  }
+
+  .canvas-hint {
+    font-size: 11px;
+    color: var(--brown-light);
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
   /* MOBILE */
   @media (max-width: 400px) {
     .songs-grid { grid-template-columns: 1fr; }
     .mood-options { gap: 12px; }
     .mood-btn img { width: 60px; height: 60px; }
     .timer-display { font-size: 30px; }
+    .wg-blank { width: 36px; height: 44px; font-size: 18px; }
+    .wg-input { width: 150px; font-size: 14px; }
+    .canvas-toolbar { gap: 8px; }
   }
