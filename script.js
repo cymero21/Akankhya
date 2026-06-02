@@ -259,367 +259,290 @@ function runTimer() {
   setInterval(update, 1000);
 }
 
-// ── QUIZ GAME ─────────────────────────────────────────────────
-//
-// HOW TO ADD YOUR OWN "ABOUT ME" QUESTIONS:
-// Copy this format and add to the personalQuestions array below:
-//
-// {
-//   category: 'about cymero',
-//   question: 'What is Cymero\'s favourite colour?',
-//   hint: 'think dark, think mood, think him.',
-//   options: ['Red', 'Black', 'Blue', 'Green'],
-//   answer: 'Black'
-// },
-//
-// Rules:
-// - options: exactly 4 choices, one must match answer exactly
-// - hint: one short sentence, teasing but fair
-// - answer: must match one of the options exactly (case sensitive)
+// ── WORD SCRAMBLE GAME ───────────────────────────────────────
+let scrambleWord = '';
+let scrambleHint = '';
+let scrambleLetters = [];   // array of {char, id, used}
+let scrambleSlots = [];     // array of {letterId | null}
+let scrambleLoading = false;
+let scrambleSkipped = false;
 
-const personalQuestions = [
-  // ── ADD YOUR PERSONAL QUESTIONS BELOW THIS LINE ──
-  {
-    category: 'about cymero',
-    question: "What is Daniel's favourite colour?",
-    options: ['Red', 'Black', 'Blue', 'Green'],
-    answer: 'Black'
-  },
-  {
-    category: 'about cymero',
-    question: "Is Daniel attracted to you?",
-    options: ['No', 'Not sure', 'Yes', 'HELL YEAHHH'],
-    answer: 'HELL YEAHHH'
-  },
-  {
-    category: 'about cymero',
-    question: "What is Daniel's favourite song?",
-    options: ['Agnes', 'White Roses', 'Blinding Lights', 'How to save a life'],
-    answer: 'How to save a life'
-  },
-  {
-    category: 'about cymero',
-    question: "Will Daniel let you spit in his mouth?",
-    options: ['Nahh', 'Not sure', 'Yes', 'HELL YEAHHH'],
-    answer: 'HELL YEAHHH'
-  },
-  {
-    category: 'about cymero',
-    question: "Will Daniel let you dominate him?",
-    options: ['Nahh', 'Not sure', 'Yes', 'HELL YEAHHH'],
-    answer: 'HELL YEAHHH'
-  },
-  {
-    category: 'about cymero',
-    question: "What is Daniel's favourite word to say when he's horny?",
-    options: ['oh shit', 'Good lord', 'help mee', 'Fuckkk'],
-    answer: 'Fuckkk'
-  },
-  {
-    category: 'about cymero',
-    question: "Will Daniel let you cuddle him?",
-    options: ['Nahh', 'Not sure', 'Yes', 'HELL YEAHHH'],
-    answer: 'HELL YEAHHH'
-  },
-  {
-    category: 'about cymero',
-    question: "Who is Daniel's favorite person",
-    options: ['Drake', 'taylor swift', 'akankhya', 'modi'],
-    answer: 'akankhya'
-  },
+const scrambleSkipMsgs = [
+  "really skipping? okay fine.",
+  "Cymero would be disappointed lol.",
+  "that one wasn't even hard 😭",
+  "skipping?? in this economy??",
+  "okay but now you have to type it yourself.",
 ];
 
-const generalQuestions = [
-  // MUSIC
-  {
-    category: 'music',
-    question: 'Which artist released the album "Melodrama" in 2017?',
-    hint: 'a New Zealander who wrote it alone at 19.',
-    options: ['Billie Eilish', 'Lorde', 'Halsey', 'Lana Del Rey'],
-    answer: 'Lorde'
-  },
-  {
-    category: 'music',
-    question: 'What does BPM stand for in music?',
-    hint: 'it s literally how fast your heart should beat to the song.',
-    options: ['Bass Per Minute', 'Beats Per Measure', 'Beats Per Minute', 'Beat Pulse Mode'],
-    answer: 'Beats Per Minute'
-  },
-  {
-    category: 'music',
-    question: 'Which instrument has 88 keys?',
-    hint: 'it lives in concert halls and also sad bedrooms.',
-    options: ['Organ', 'Piano', 'Harpsichord', 'Synthesizer'],
-    answer: 'Piano'
-  },
-  {
-    category: 'music',
-    question: 'AURORA is from which country?',
-    hint: 'cold, fjords, very dramatic landscapes.',
-    options: ['Sweden', 'Denmark', 'Norway', 'Iceland'],
-    answer: 'Norway'
-  },
-  {
-    category: 'music',
-    question: 'What genre is Glass Animals primarily associated with?',
-    hint: 'psychedelic something — not quite pop, not quite indie.',
-    options: ['R&B', 'Indie Pop', 'Dream Pop', 'Alternative R&B'],
-    answer: 'Indie Pop'
-  },
-  // ART
-  {
-    category: 'art',
-    question: 'Who painted the Mona Lisa?',
-    hint: 'Italian. genius. also designed war machines.',
-    options: ['Michelangelo', 'Raphael', 'Leonardo da Vinci', 'Donatello'],
-    answer: 'Leonardo da Vinci'
-  },
-  {
-    category: 'art',
-    question: 'What are the three primary colours?',
-    hint: 'the ones you cannot make by mixing others.',
-    options: ['Red, Yellow, Blue', 'Red, Green, Blue', 'Cyan, Magenta, Yellow', 'Orange, Purple, Green'],
-    answer: 'Red, Yellow, Blue'
-  },
-  {
-    category: 'art',
-    question: 'Which art movement is Salvador Dalí associated with?',
-    hint: 'melting clocks. dreams. the unconscious mind.',
-    options: ['Cubism', 'Surrealism', 'Expressionism', 'Dadaism'],
-    answer: 'Surrealism'
-  },
-  {
-    category: 'art',
-    question: 'What is a "still life" painting?',
-    hint: 'things that do not move, arranged and painted.',
-    options: ['A portrait of a sleeping person', 'A painting of inanimate objects', 'A landscape at sunset', 'A self-portrait'],
-    answer: 'A painting of inanimate objects'
-  },
-  {
-    category: 'art',
-    question: 'Frida Kahlo was a painter from which country?',
-    hint: 'she painted herself endlessly, and the world paid attention.',
-    options: ['Brazil', 'Colombia', 'Mexico', 'Argentina'],
-    answer: 'Mexico'
-  },
-  // HISTORY
-  {
-    category: 'history',
-    question: 'In which year did World War II end?',
-    hint: 'mid-forties. atomic bombs. the world exhaled.',
-    options: ['1943', '1944', '1945', '1946'],
-    answer: '1945'
-  },
-  {
-    category: 'history',
-    question: 'Which ancient wonder was located in Alexandria, Egypt?',
-    hint: 'you could see ships from miles away because of it.',
-    options: ['The Colossus of Rhodes', 'The Lighthouse of Alexandria', 'The Hanging Gardens', 'The Temple of Artemis'],
-    answer: 'The Lighthouse of Alexandria'
-  },
-  {
-    category: 'history',
-    question: 'Who was the first woman to win a Nobel Prize?',
-    hint: 'she won it twice, in two different sciences.',
-    options: ['Rosalind Franklin', 'Marie Curie', 'Ada Lovelace', 'Florence Nightingale'],
-    answer: 'Marie Curie'
-  },
-  {
-    category: 'history',
-    question: 'The Berlin Wall fell in which year?',
-    hint: 'the Cold War was basically over after this night.',
-    options: ['1987', '1988', '1989', '1991'],
-    answer: '1989'
-  },
-  // COUNTRIES
-  {
-    category: 'countries',
-    question: 'What is the capital of Australia?',
-    hint: 'not Sydney. people always get this wrong.',
-    options: ['Sydney', 'Melbourne', 'Canberra', 'Brisbane'],
-    answer: 'Canberra'
-  },
-  {
-    category: 'countries',
-    question: 'Which country has the most natural lakes in the world?',
-    hint: 'cold, polite, hockey-obsessed.',
-    options: ['Russia', 'Canada', 'Finland', 'Norway'],
-    answer: 'Canada'
-  },
-  {
-    category: 'countries',
-    question: 'What language is spoken in Brazil?',
-    hint: 'South America, but not Spanish.',
-    options: ['Spanish', 'Portuguese', 'French', 'English'],
-    answer: 'Portuguese'
-  },
-  {
-    category: 'countries',
-    question: 'Which is the smallest country in the world?',
-    hint: 'it fits inside a city, and has its own postal stamps.',
-    options: ['Monaco', 'San Marino', 'Liechtenstein', 'Vatican City'],
-    answer: 'Vatican City'
-  },
-  // BIOLOGY
-  {
-    category: 'biology',
-    question: 'How many chambers does the human heart have?',
-    hint: 'two on top, two on bottom.',
-    options: ['2', '3', '4', '6'],
-    answer: '4'
-  },
-  {
-    category: 'biology',
-    question: 'What is the powerhouse of the cell?',
-    hint: 'you already know this one.',
-    options: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi Apparatus'],
-    answer: 'Mitochondria'
-  },
-  {
-    category: 'biology',
-    question: 'What percentage of the human body is water?',
-    hint: 'more than half. stay hydrated.',
-    options: ['45%', '60%', '75%', '90%'],
-    answer: '60%'
-  },
-  // MATH
-  {
-    category: 'math',
-    question: 'What is the value of Pi (π) to two decimal places?',
-    hint: 'circles live and die by this number.',
-    options: ['3.12', '3.14', '3.16', '3.41'],
-    answer: '3.14'
-  },
-  {
-    category: 'math',
-    question: 'What is 12 squared?',
-    hint: 'think of a clock, then multiply it by itself.',
-    options: ['124', '140', '144', '148'],
-    answer: '144'
-  },
-  {
-    category: 'math',
-    question: 'How many sides does a hexagon have?',
-    hint: 'bees know this by instinct.',
-    options: ['5', '6', '7', '8'],
-    answer: '6'
-  },
-  // ENVIRONMENT
-  {
-    category: 'environment',
-    question: 'What gas do plants absorb during photosynthesis?',
-    hint: 'the one we breathe out too much of.',
-    options: ['Oxygen', 'Nitrogen', 'Carbon Dioxide', 'Hydrogen'],
-    answer: 'Carbon Dioxide'
-  },
-  {
-    category: 'environment',
-    question: 'Which ocean is the largest on Earth?',
-    hint: 'covers more than a third of the planet\'s surface.',
-    options: ['Atlantic', 'Indian', 'Arctic', 'Pacific'],
-    answer: 'Pacific'
-  },
-  {
-    category: 'environment',
-    question: 'What is the main cause of the hole in the ozone layer?',
-    hint: 'once used in fridges and spray cans.',
-    options: ['Carbon Dioxide', 'Methane', 'CFCs', 'Sulfur Dioxide'],
-    answer: 'CFCs'
-  },
+const scrambleWinMsgs = [
+  "yes!! you got it ♡",
+  "okay you're actually smart.",
+  "that's my girl ♡",
+  "nailed it.",
+  "i knew you'd figure it out.",
 ];
 
-// Merge: personal first, then shuffle general
-function buildQuizPool() {
-  return [...personalQuestions, ...generalQuestions].sort(() => Math.random() - 0.5);
+async function fetchScrambleWord() {
+  scrambleLoading = true;
+  scrambleSkipped = false;
+  renderScramble();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 100,
+        messages: [{
+          role: 'user',
+          content: `Give me a single everyday English word (4–7 letters, no spaces, no hyphens) and a short playful hint that helps someone figure out the word without giving it away directly. The word should be common and fun — not obscure.
+
+Respond in EXACTLY this format, nothing else:
+WORD: [word in uppercase]
+HINT: [one sentence hint, warm and slightly teasing]`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content[0].text.trim();
+    const wordMatch = text.match(/WORD:\s*([A-Z]+)/i);
+    const hintMatch = text.match(/HINT:\s*(.+)/i);
+    if (wordMatch && hintMatch) {
+      scrambleWord = wordMatch[1].toUpperCase().replace(/[^A-Z]/g, '');
+      scrambleHint = hintMatch[1].trim();
+    } else throw new Error('bad parse');
+  } catch(e) {
+    if (!window._scramblePool || window._scramblePool.length === 0) {
+      window._scramblePool = [
+        { word: 'BLOOM', hint: 'what flowers do, and what you do when you walk into a room.' },
+        { word: 'DRIFT', hint: 'what your mind does when the music is really good.' },
+        { word: 'GRACE', hint: 'how she moves. how she talks. just how she is.' },
+        { word: 'LIGHT', hint: 'it fills a room, and some people do too.' },
+        { word: 'CRISP', hint: 'cold mornings, fresh air, that satisfying snap.' },
+        { word: 'FLAME', hint: 'warm, beautiful, and a little dangerous.' },
+        { word: 'STORM', hint: 'loud, dramatic, then suddenly peaceful.' },
+        { word: 'PEARL', hint: 'something small that took years to become beautiful.' },
+        { word: 'CEDAR', hint: 'that smell in old wooden places that feels like home.' },
+        { word: 'PRISM', hint: 'plain on one side, everything on the other.' },
+        { word: 'EMBER', hint: 'what stays glowing long after the fire is gone.' },
+        { word: 'FROST', hint: 'it makes the world look quieter than it is.' },
+        { word: 'LUNAR', hint: 'anything to do with the thing that controls the tides.' },
+        { word: 'MISTY', hint: 'that soft blur between here and somewhere else.' },
+        { word: 'AMBER', hint: 'warm golden light trapped in a moment.' },
+        { word: 'FLORA', hint: 'the collective name for everything that grows.' },
+        { word: 'BLAZE', hint: 'going fast, going bright, going all in.' },
+        { word: 'BRAVE', hint: 'not the absence of fear. doing it anyway.' },
+        { word: 'CHASE', hint: 'running toward something you really want.' },
+        { word: 'DREAM', hint: 'where your brain goes when you stop controlling it.' },
+        { word: 'FAITH', hint: 'believing before you have proof.' },
+        { word: 'HONEY', hint: 'sweet, slow, made by something that also stings.' },
+        { word: 'IVORY', hint: 'the colour of old piano keys and quiet elegance.' },
+        { word: 'MAPLE', hint: 'the tree that bleeds sweetness in the cold.' },
+        { word: 'OCEAN', hint: 'bigger than your problems, deeper than your thoughts.' },
+        { word: 'PIANO', hint: '88 keys and infinite things to say.' },
+        { word: 'RIVER', hint: 'always moving, never the same water twice.' },
+        { word: 'SUGAR', hint: 'makes everything better, but too much ruins it.' },
+        { word: 'VELVET', hint: 'soft in a way that feels almost too good to touch.' },
+        { word: 'YOUTH', hint: 'the thing everyone misses when it is already gone.' },
+        { word: 'ANGEL', hint: 'something between human and something else entirely.' },
+        { word: 'SOLAR', hint: 'everything alive on earth depends on this.' },
+        { word: 'CLOUD', hint: 'it looks still but it is always moving.' },
+        { word: 'SHORE', hint: 'the edge where two worlds meet.' },
+        { word: 'NOBLE', hint: 'doing the right thing when no one is watching.' },
+        { word: 'QUIET', hint: 'the loudest thing in an empty room.' },
+        { word: 'VIVID', hint: 'colours so bright they feel like a feeling.' },
+        { word: 'BRISK', hint: 'cold air that wakes you up faster than coffee.' },
+        { word: 'CORAL', hint: 'a colour and a whole living city under the sea.' },
+        { word: 'AZURE', hint: 'the specific blue of a sky with nothing in it.' },
+        { word: 'CRAFT', hint: 'making something with your hands and your whole attention.' },
+        { word: 'GLIDE', hint: 'moving like you are not even trying.' },
+        { word: 'SWIRL', hint: 'a spin that does not know where it is going.' },
+        { word: 'MIRTH', hint: 'old word for the kind of laughter that fills a room.' },
+        { word: 'PLUSH', hint: 'soft, rich, like sinking into something expensive.' },
+        { word: 'CHIRP', hint: 'the sound that means morning has started without you.' },
+        { word: 'DAISY', hint: 'the flower people pull petals off to make decisions.' },
+        { word: 'FLUTE', hint: 'an instrument that sounds like it is made of air.' },
+        { word: 'HAZEL', hint: 'eyes that cannot decide between brown and green.' },
+        { word: 'LEMON', hint: 'sour until you add sugar, then everything changes.' },
+        { word: 'ULTRA', hint: 'beyond the normal. more than expected.' },
+        { word: 'VIOLA', hint: 'the instrument between a violin and a cello, always overlooked.' },
+        { word: 'ZESTY', hint: 'full of energy and a little sharp, like citrus.' },
+        { word: 'KNACK', hint: 'a talent so natural it looks effortless.' },
+        { word: 'LOFTY', hint: 'high up, ambitious, reaching for something most people cannot see.' },
+        { word: 'MAGIC', hint: 'the explanation when you cannot find a better one.' },
+        { word: 'OASIS', hint: 'the one good thing in the middle of something hard.' },
+        { word: 'QUEST', hint: 'a journey where the destination is not the point.' },
+        { word: 'WITTY', hint: 'sharp and funny in the same breath.' },
+        { word: 'ZINGY', hint: 'bright and alive in a way that wakes people up.' },
+        { word: 'BERRY', hint: 'small, round, and somehow always the best part of the dessert.' },
+        { word: 'FANCY', hint: 'a little extra, on purpose.' },
+        { word: 'GLOWY', hint: 'that thing your skin does when you are actually happy.' },
+        { word: 'EARTHY', hint: 'grounded, natural, smells like after rain.' },
+        { word: 'DAILY', hint: 'not special, but consistent. which is its own kind of special.' },
+      ].sort(() => Math.random() - 0.5);
+    }
+    const f = window._scramblePool.pop();
+    scrambleWord = f.word;
+    scrambleHint = f.hint;
+  }
+
+  // build scrambled letter chips (guaranteed different order)
+  const chars = scrambleWord.split('');
+  let shuffled;
+  do { shuffled = [...chars].sort(() => Math.random() - 0.5); }
+  while (shuffled.join('') === scrambleWord);
+
+  scrambleLetters = shuffled.map((ch, i) => ({ char: ch, id: i, used: false }));
+  scrambleSlots = Array(scrambleWord.length).fill(null);
+  scrambleLoading = false;
+  renderScramble();
 }
 
-let quizPool = [];
-let quizIndex = 0;
-let quizScore = 0;
-let quizAnswered = false;
-
-function initQuiz() {
-  quizPool = buildQuizPool();
-  quizIndex = 0;
-  quizScore = 0;
-  renderQuiz();
-}
-
-function renderQuiz() {
-  const card = document.getElementById('quiz-card');
+function renderScramble() {
+  const card = document.getElementById('scramble-card');
   if (!card) return;
 
-  if (quizIndex >= quizPool.length) {
+  if (scrambleLoading) {
     card.innerHTML = `
-      <p class="quiz-title">you're done ♡</p>
-      <p class="quiz-score-final">you got <strong>${quizScore}</strong> out of <strong>${quizPool.length}</strong></p>
-      <p class="quiz-hint">${quizScore >= quizPool.length * 0.7 ? 'okay you actually know your stuff.' : quizScore >= quizPool.length * 0.4 ? 'not bad. room to grow.' : 'we need to talk lol.'}</p>
-      <button class="quiz-next-btn" onclick="initQuiz()">play again →</button>
-    `;
+      <p class="sc-label">arrange the letters</p>
+      <p class="sc-loading">thinking of a word for you...</p>`;
     return;
   }
 
-  const q = quizPool[quizIndex];
-  quizAnswered = false;
-
-  const letters = ['A', 'B', 'C', 'D'];
-  const optionsHTML = q.options.map((opt, i) => `
-    <button class="quiz-option" onclick="answerQuiz(this, '${opt.replace(/'/g, "\\'")}')">
-      <span class="quiz-letter">${letters[i]}</span>
-      <span class="quiz-opt-text">${opt}</span>
-    </button>
+  const chipsHTML = scrambleLetters.map(l => `
+    <button
+      class="sc-chip${l.used ? ' sc-chip-used' : ''}"
+      id="chip-${l.id}"
+      onclick="placeChip(${l.id})"
+      ${l.used ? 'disabled' : ''}
+    >${l.char}</button>
   `).join('');
 
-  card.innerHTML = `
-    <div class="quiz-meta">
-      <span class="quiz-category">${q.category}</span>
-      <span class="quiz-progress">${quizIndex + 1} / ${quizPool.length}</span>
+  const slotsHTML = scrambleSlots.map((lid, i) => {
+    const filled = lid !== null;
+    const ch = filled ? scrambleLetters[lid].char : '';
+    return `<button class="sc-slot${filled ? ' sc-slot-filled' : ''}" onclick="removeSlot(${i})">${ch || '&nbsp;'}</button>`;
+  }).join('');
+
+  const skippedReveal = scrambleSkipped ? `
+    <div class="sc-reveal">
+      it was <strong>${scrambleWord}</strong>. ${scrambleSkipMsgs[Math.floor(Math.random() * scrambleSkipMsgs.length)]}
+      <br><small>now type it correctly below to continue.</small>
     </div>
-    <p class="quiz-title">${q.question}</p>
-    <p class="quiz-hint">💡 ${q.hint}</p>
-    <div class="quiz-options">${optionsHTML}</div>
-    <div class="quiz-feedback" id="quiz-feedback"></div>
-    <div class="quiz-actions" id="quiz-actions"></div>
+    <div class="sc-type-row">
+      <input id="sc-type-input" class="sc-type-input" maxlength="${scrambleWord.length}"
+        placeholder="type it here..." autocomplete="off" autocorrect="off" spellcheck="false"
+        oninput="checkTypeAnswer()" />
+    </div>` : `
+    <div class="sc-actions">
+      <button class="sc-skip" onclick="skipScramble()">skip</button>
+    </div>`;
+
+  card.innerHTML = `
+    <p class="sc-label">arrange the letters</p>
+    <p class="sc-hint">💡 ${scrambleHint}</p>
+    <div class="sc-chips" id="sc-chips">${chipsHTML}</div>
+    <p class="sc-instruction">tap a letter to place it →</p>
+    <div class="sc-slots" id="sc-slots">${slotsHTML}</div>
+    <div class="sc-feedback" id="sc-feedback"></div>
+    ${skippedReveal}
   `;
-}
 
-function answerQuiz(btn, chosen) {
-  if (quizAnswered) return;
-  quizAnswered = true;
-
-  const q = quizPool[quizIndex];
-  const correct = chosen === q.answer;
-  const feedback = document.getElementById('quiz-feedback');
-  const actions = document.getElementById('quiz-actions');
-
-  // colour all options
-  document.querySelectorAll('.quiz-option').forEach(b => {
-    const txt = b.querySelector('.quiz-opt-text').textContent;
-    if (txt === q.answer) b.classList.add('quiz-correct');
-    else b.classList.add('quiz-wrong');
-    b.disabled = true;
-  });
-
-  if (correct) {
-    quizScore++;
-    const wins = ['correct ♡', 'yes!!', 'you got it.', 'that\'s right!', 'knew you\'d get that.'];
-    feedback.textContent = wins[Math.floor(Math.random() * wins.length)];
-    feedback.className = 'quiz-feedback quiz-fb-correct';
-  } else {
-    const losses = [
-      `it was "${q.answer}" — now you know.`,
-      `nope. the answer is "${q.answer}".`,
-      `"${q.answer}" was right. keep going.`,
-      `not quite. it's "${q.answer}".`
-    ];
-    feedback.textContent = losses[Math.floor(Math.random() * losses.length)];
-    feedback.className = 'quiz-feedback quiz-fb-wrong';
+  if (scrambleSkipped) {
+    const inp = document.getElementById('sc-type-input');
+    if (inp) inp.focus();
   }
-
-  quizIndex++;
-  const label = quizIndex >= quizPool.length ? 'see your score →' : 'next question →';
-  actions.innerHTML = `<button class="quiz-next-btn" onclick="renderQuiz()">${label}</button>`;
 }
+
+function placeChip(id) {
+  if (scrambleSkipped) return;
+  const letter = scrambleLetters[id];
+  if (letter.used) return;
+  // find first empty slot
+  const emptyIdx = scrambleSlots.indexOf(null);
+  if (emptyIdx === -1) return;
+  scrambleSlots[emptyIdx] = id;
+  letter.used = true;
+  updateScrambleDOM();
+  // check if all slots filled
+  if (!scrambleSlots.includes(null)) checkScrambleAnswer();
+}
+
+function removeSlot(slotIdx) {
+  if (scrambleSkipped) return;
+  const lid = scrambleSlots[slotIdx];
+  if (lid === null) return;
+  scrambleLetters[lid].used = false;
+  scrambleSlots[slotIdx] = null;
+  clearFeedback();
+  updateScrambleDOM();
+}
+
+function updateScrambleDOM() {
+  // update chips
+  scrambleLetters.forEach(l => {
+    const chip = document.getElementById('chip-' + l.id);
+    if (!chip) return;
+    chip.disabled = l.used;
+    chip.className = 'sc-chip' + (l.used ? ' sc-chip-used' : '');
+  });
+  // update slots
+  const slotsEl = document.getElementById('sc-slots');
+  if (slotsEl) {
+    slotsEl.innerHTML = scrambleSlots.map((lid, i) => {
+      const filled = lid !== null;
+      const ch = filled ? scrambleLetters[lid].char : '';
+      return `<button class="sc-slot${filled ? ' sc-slot-filled' : ''}" onclick="removeSlot(${i})">${ch || '&nbsp;'}</button>`;
+    }).join('');
+  }
+}
+
+function checkScrambleAnswer() {
+  const guess = scrambleSlots.map(lid => scrambleLetters[lid].char).join('');
+  const feedback = document.getElementById('sc-feedback');
+  if (guess === scrambleWord) {
+    feedback.textContent = scrambleWinMsgs[Math.floor(Math.random() * scrambleWinMsgs.length)];
+    feedback.className = 'sc-feedback sc-correct';
+    // swap skip for next
+    const actions = document.querySelector('.sc-actions');
+    if (actions) actions.innerHTML = `<button class="sc-next" onclick="fetchScrambleWord()">next word →</button>`;
+    // light up slots green
+    document.querySelectorAll('.sc-slot').forEach(s => s.classList.add('sc-slot-correct'));
+  } else {
+    feedback.textContent = 'not quite. tap a slot to remove a letter and try again.';
+    feedback.className = 'sc-feedback sc-wrong';
+  }
+}
+
+function clearFeedback() {
+  const fb = document.getElementById('sc-feedback');
+  if (fb) { fb.textContent = ''; fb.className = 'sc-feedback'; }
+}
+
+function skipScramble() {
+  scrambleSkipped = true;
+  renderScramble();
+}
+
+function checkTypeAnswer() {
+  const inp = document.getElementById('sc-type-input');
+  if (!inp) return;
+  if (inp.value.toUpperCase() === scrambleWord) {
+    inp.disabled = true;
+    // show next button below input
+    const row = document.querySelector('.sc-type-row');
+    if (row) row.insertAdjacentHTML('afterend',
+      `<div style="text-align:center;margin-top:12px">
+        <button class="sc-next" onclick="fetchScrambleWord()">okay next one →</button>
+       </div>`);
+    const rev = document.querySelector('.sc-reveal');
+    if (rev) rev.style.color = 'var(--brown-light)';
+  }
+}
+
+function initScramble() { fetchScrambleWord(); }
 
 // ── SKETCH CANVAS ────────────────────────────────────────────
 let drawing = false, tool = 'pen', brushSize = 5;
@@ -708,5 +631,5 @@ renderSongs();
 generateSketch();
 renderNote();
 runTimer();
-initQuiz();
+initScramble();
 initCanvas();
