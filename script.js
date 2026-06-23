@@ -123,6 +123,138 @@ const songs = [
     { title: "Good News", artist: "Shaboozey", url: "https://open.spotify.com/search/Good%20News%20Shaboozey" },
     { title: "Home", artist: "AURORA", url: "https://open.spotify.com/search/Home%20AURORA" }
   ]
+  [
+    { title: "Balcony", artist: "Dayglow", url: "https://open.spotify.com/search/Balcony%20Dayglow" },
+    { title: "Praise The Lord (Da Shine)", artist: "A$AP Rocky, Skepta", url: "https://open.spotify.com/search/Praise%20The%20Lord%20Da%20Shine%20ASAP%20Rocky%20Skepta" }
+  ],
+  [
+    { title: "What You Know", artist: "Two Door Cinema Club", url: "https://open.spotify.com/search/What%20You%20Know%20Two%20Door%20Cinema%20Club" },
+    { title: "Chicago", artist: "Michael Jackson", url: "https://open.spotify.com/search/Chicago%20Michael%20Jackson" }
+  ],
+  [
+    { title: "American Girls", artist: "Harry Styles", url: "https://open.spotify.com/search/American%20Girls%20Harry%20Styles" },
+    { title: "Lover Girl", artist: "Laufey", url: "https://open.spotify.com/search/Lover%20Girl%20Laufey" }
+  ],
+  [
+    { title: "Remember When", artist: "Wallows", url: "https://open.spotify.com/search/Remember%20When%20Wallows" },
+    { title: "Mountain Sound", artist: "Of Monsters and Men", url: "https://open.spotify.com/search/Mountain%20Sound%20Of%20Monsters%20and%20Men" }
+  ],
+  [
+    { title: "her", artist: "JVKE, OXYGEN", url: "https://open.spotify.com/search/her%20JVKE%20OXYGEN" },
+    { title: "Nights", artist: "Frank Ocean", url: "https://open.spotify.com/search/Nights%20Frank%20Ocean" }
+  ],
+  [
+    { title: "Quarterback", artist: "Wallows", url: "https://open.spotify.com/search/Quarterback%20Wallows" },
+    { title: "Mystical Magical", artist: "Benson Boone", url: "https://open.spotify.com/search/Mystical%20Magical%20Benson%20Boone" }
+  ],
+  [
+    { title: "Record Player", artist: "Daisy the Great, AJR", url: "https://open.spotify.com/search/Record%20Player%20Daisy%20the%20Great%20AJR" },
+    { title: "Morenikeji", artist: "Konstant", url: "https://open.spotify.com/search/Morenikeji%20Konstant" }
+  ],
+  [
+    { title: "Please Let Me Wonder", artist: "The Beach Boys", url: "https://open.spotify.com/search/Please%20Let%20Me%20Wonder%20The%20Beach%20Boys" },
+    { title: "watch", artist: "Billie Eilish", url: "https://open.spotify.com/search/watch%20Billie%20Eilish" }
+  ],
+  [
+    { title: "Fine", artist: "Noah Kahan", url: "https://open.spotify.com/search/Fine%20Noah%20Kahan" },
+    { title: "Army Dreamers", artist: "Kate Bush", url: "https://open.spotify.com/search/Army%20Dreamers%20Kate%20Bush" }
+  ],
+  [
+    { title: "In Christ Alone", artist: "Keith & Kristyn Getty", url: "https://open.spotify.com/search/In%20Christ%20Alone%20Keith%20Kristyn%20Getty" },
+    { title: "Backseat", artist: "Khalid", url: "https://open.spotify.com/search/Backseat%20Khalid" }
+  ]
+  [
+    { title: "Cold Outside", artist: "Timaya, BNXN", url: "https://open.spotify.com/search/Cold%20Outside%20Timaya%20BNXN" },
+    { title: "I Do", artist: "BNXN", url: "https://open.spotify.com/search/I%20Do%20BNXN" }
+  ],
+  [
+    { title: "Salt", artist: "Dai Verse", url: "https://open.spotify.com/search/Salt%20Dai%20Verse" },
+    { title: "Maximum Damage", artist: "BNXN, Headie One", url: "https://open.spotify.com/search/Maximum%20Damage%20BNXN%20Headie%20One" }
+  ],
+  [
+    { title: "Doha", artist: "Seyi Vibez", url: "https://open.spotify.com/search/Doha%20Seyi%20Vibez" },
+    { title: "Traboski", artist: "BNXN", url: "https://open.spotify.com/search/Traboski%20BNXN" }
+  ],
+  [
+    { title: "Bad Man Wicked", artist: "BNXN", url: "https://open.spotify.com/search/Bad%20Man%20Wicked%20BNXN" },
+    { title: "The Suitor", artist: "Monaky", url: "https://open.spotify.com/search/The%20Suitor%20Monaky" }
+  ],
+  [
+    { title: "Remember", artist: "Asake", url: "https://open.spotify.com/search/Remember%20Asake" },
+    { title: "Many Ways", artist: "BNXN, Wizkid", url: "https://open.spotify.com/search/Many%20Ways%20BNXN%20Wizkid" }
+  ],
+  [
+    { title: "Hustle", artist: "Reminisce, BNXN, D Smoke", url: "https://open.spotify.com/search/Hustle%20Reminisce%20BNXN%20D%20Smoke" },
+    { title: "Frank Sinatra", artist: "BNXN, Sarz", url: "https://open.spotify.com/search/Frank%20Sinatra%20BNXN%20Sarz" }
+  ],
+  [
+    { title: "Feeling", artist: "LADIPOE, BNXN", url: "https://open.spotify.com/search/Feeling%20LADIPOE%20BNXN" },
+    { title: "I Alone", artist: "BNXN", url: "https://open.spotify.com/search/I%20Alone%20BNXN" }
+  ],
+  [
+    { title: "Imagine", artist: "Strei", url: "https://open.spotify.com/search/Imagine%20Strei" },
+    { title: "Never Stopped", artist: "BNXN", url: "https://open.spotify.com/search/Never%20Stopped%20BNXN" }
+  ],
+  [
+    { title: "Felony", artist: "CKay", url: "https://open.spotify.com/search/Felony%20CKay" },
+    { title: "In Jesus Name", artist: "BNXN, Soweto Gospel Choir", url: "https://open.spotify.com/search/In%20Jesus%20Name%20BNXN%20Soweto%20Gospel%20Choir" }
+  ],
+  [
+    { title: "Enchanté", artist: "taves", url: "https://open.spotify.com/search/Enchante%20taves" },
+    { title: "Regret", artist: "BNXN, 2Baba", url: "https://open.spotify.com/search/Regret%20BNXN%202Baba" }
+  ],
+  [
+    { title: "Venus", artist: "Faceless, Serøtonin", url: "https://open.spotify.com/search/Venus%20Faceless%20Serotonin" },
+    { title: "Kenkele", artist: "BNXN, Wande Coal", url: "https://open.spotify.com/search/Kenkele%20BNXN%20Wande%20Coal" }
+  ],
+  [
+    { title: "Early Momo", artist: "Vector, GoodGirl LA", url: "https://open.spotify.com/search/Early%20Momo%20Vector%20GoodGirl%20LA" },
+    { title: "Very Soon", artist: "BNXN, FOLA", url: "https://open.spotify.com/search/Very%20Soon%20BNXN%20FOLA" }
+  ],
+  [
+    { title: "FRE$H", artist: "Victony", url: "https://open.spotify.com/search/FRESH%20Victony" },
+    { title: "Modupe", artist: "BNXN, Olamide", url: "https://open.spotify.com/search/Modupe%20BNXN%20Olamide" }
+  ],
+  [
+    { title: "Bae Bae", artist: "Ruger, BNXN", url: "https://open.spotify.com/search/Bae%20Bae%20Ruger%20BNXN" },
+    { title: "Already", artist: "BNXN, Sarz", url: "https://open.spotify.com/search/Already%20BNXN%20Sarz" }
+  ],
+  [
+    { title: "Ole", artist: "Qing Madi, BNXN", url: "https://open.spotify.com/search/Ole%20Qing%20Madi%20BNXN" },
+    { title: "Rum & Soda", artist: "BNXN, Sarz", url: "https://open.spotify.com/search/Rum%20Soda%20BNXN%20Sarz" }
+  ],
+  [
+    { title: "by now", artist: "CKay", url: "https://open.spotify.com/search/by%20now%20CKay" },
+    { title: "Outside", artist: "BNXN", url: "https://open.spotify.com/search/Outside%20BNXN" }
+  ],
+  [
+    { title: "Uncle Pele", artist: "Dxtiny", url: "https://open.spotify.com/search/Uncle%20Pele%20Dxtiny" },
+    { title: "Bad Since '97", artist: "BNXN", url: "https://open.spotify.com/search/Bad%20Since%2097%20BNXN" }
+  ],
+  [
+    { title: "Dealer", artist: "Ayo Maff, Fireboy DML", url: "https://open.spotify.com/search/Dealer%20Ayo%20Maff%20Fireboy%20DML" },
+    { title: "GWAGWALADA", artist: "BNXN, Kizz Daniel, Seyi Vibez", url: "https://open.spotify.com/search/GWAGWALADA%20BNXN%20Kizz%20Daniel%20Seyi%20Vibez" }
+  ],
+  [
+    { title: "For Days", artist: "BNXN", url: "https://open.spotify.com/search/For%20Days%20BNXN" },
+    { title: "Awolowo", artist: "Fido", url: "https://open.spotify.com/search/Awolowo%20Fido" }
+  ],
+  [
+    { title: "Back Outside", artist: "BNXN, Sarz", url: "https://open.spotify.com/search/Back%20Outside%20BNXN%20Sarz" },
+    { title: "POE", artist: "Ruger, BNXN", url: "https://open.spotify.com/search/POE%20Ruger%20BNXN" }
+  ],
+  [
+    { title: "PRAY", artist: "BNXN", url: "https://open.spotify.com/search/PRAY%20BNXN" },
+    { title: "MCBH", artist: "Asake", url: "https://open.spotify.com/search/MCBH%20Asake" }
+  ],
+  [
+    { title: "In My Mind", artist: "BNXN", url: "https://open.spotify.com/search/In%20My%20Mind%20BNXN" },
+    { title: "Chandelier", artist: "Monaky", url: "https://open.spotify.com/search/Chandelier%20Monaky" }
+  ],
+  [
+    { title: "Propeller", artist: "JAE5, Dave, BNXN", url: "https://open.spotify.com/search/Propeller%20JAE5%20Dave%20BNXN" },
+    { title: "Loose Emotions", artist: "BNXN", url: "https://open.spotify.com/search/Loose%20Emotions%20BNXN" }
+  ]
 ];
 
 const sketches = [
